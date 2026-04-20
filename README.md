@@ -1,8 +1,8 @@
-# Conversa Mesh
+# LLM Agent Mesh
 
-> Mini-agente conversacional distribuido basado en LLM. Arquitectura de microservicios Node/TypeScript, desplegada en Kubernetes, con observabilidad, resiliencia y service mesh.
+> Agente conversacional basado en LLM. Arquitectura de microservicios Node/TypeScript, desplegada en Kubernetes, con observabilidad, resiliencia y service mesh.
 
-Proyecto de aprendizaje para la candidatura de **Node.js Software Engineer** en Esbrina. Toca todas las áreas del stack del puesto: microservicios, Kubernetes, cloud (AWS), LLMs/Generative AI.
+Proyecto de aprendizaje que toca las principales áreas de una arquitectura distribuida moderna: **microservicios, Kubernetes, cloud (AWS), LLMs / Generative AI, tracing distribuido, circuit breakers y service mesh**.
 
 ---
 
@@ -32,21 +32,21 @@ flowchart LR
 
 ## Stack
 
-| Capa | Tecnologia |
-| --- | --- |
-| Runtime | Node.js 20 + TypeScript strict |
-| HTTP | Express |
-| DB | PostgreSQL + Prisma |
-| Validacion | Zod |
-| Logs | pino |
-| Tests | Jest + supertest |
-| Monorepo | npm workspaces |
-| Contenedores | Docker multi-stage |
-| Orquestacion | Kubernetes (minikube en local) |
-| Tracing | OpenTelemetry + Jaeger |
-| Circuit breaker | opossum |
-| Service mesh | Linkerd + Istio (lab) |
-| LLM | Claude API (Anthropic) + stub AWS Bedrock |
+| Capa            | Tecnologia                                |
+| --------------- | ----------------------------------------- |
+| Runtime         | Node.js 20 + TypeScript strict            |
+| HTTP            | Express                                   |
+| DB              | PostgreSQL + Prisma                       |
+| Validacion      | Zod                                       |
+| Logs            | pino                                      |
+| Tests           | Jest + supertest                          |
+| Monorepo        | npm workspaces                            |
+| Contenedores    | Docker multi-stage                        |
+| Orquestacion    | Kubernetes (minikube en local)            |
+| Tracing         | OpenTelemetry + Jaeger                    |
+| Circuit breaker | opossum                                   |
+| Service mesh    | Linkerd + Istio (lab)                     |
+| LLM             | Claude API (Anthropic) + stub AWS Bedrock |
 
 ---
 
@@ -68,7 +68,7 @@ Fases 1-8 pendientes. Ver `tasks/roadmap.md` y `tasks/todo.md` para el plan comp
 ## Estructura del monorepo
 
 ```
-conversa-mesh/
+llm-agent-mesh/
 ├── package.json               # workspaces config
 ├── tsconfig.base.json         # TypeScript compartido
 ├── eslint.config.mjs          # flat config ESLint 9+

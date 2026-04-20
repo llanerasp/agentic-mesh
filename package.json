@@ -1,8 +1,8 @@
 {
-  "name": "conversa-mesh",
+  "name": "llm-agent-mesh",
   "version": "0.1.0",
   "private": true,
-  "description": "Mini agente conversacional distribuido — microservicios Node/TS, Kubernetes, service mesh y LLM. Proyecto de aprendizaje para candidatura Esbrina.",
+  "description": "Agente conversacional basado en LLM. Microservicios Node/TypeScript orquestados en Kubernetes con service mesh, tracing distribuido y circuit breakers.",
   "engines": {
     "node": ">=20.0.0",
     "npm": ">=10.0.0"

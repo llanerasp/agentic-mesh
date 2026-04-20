@@ -7,11 +7,13 @@ Checklist detallada por fase. Marcar elementos a medida que avanzamos. Al final 
 ## Fase 0 — Setup, decisiones y tooling (0.5 días)
 
 ### Decisiones de proyecto
+
 - [ ] Obtener API key de Anthropic (ver `setup-claude-api.md`) y añadir $5 de crédito inicial.
 - [ ] Decidir sobre AWS: crear cuenta free tier (Bedrock requiere cuenta) vs dejar manifests EKS sin desplegar.
-- [ ] Nombre del proyecto: confirmar (propuesta: `conversa-mesh`).
+- [x] Nombre del proyecto: `llm-agent-mesh`.
 
 ### Herramientas a instalar (Windows)
+
 - [ ] Docker Desktop (con Kubernetes habilitado o instalar minikube aparte).
 - [ ] `kubectl` (CLI de Kubernetes).
 - [ ] `minikube` (cluster local).
@@ -21,6 +23,7 @@ Checklist detallada por fase. Marcar elementos a medida que avanzamos. Al final 
 - [ ] Verificar que todas las versiones son compatibles con Windows.
 
 ### Estructura del monorepo
+
 - [ ] `package.json` raíz con workspaces: `services/*`, `packages/*`.
 - [ ] `tsconfig.base.json` con strict: true, target ES2022, NodeNext, paths `@/*`.
 - [ ] `.prettierrc` y `.prettierignore`.
@@ -31,6 +34,7 @@ Checklist detallada por fase. Marcar elementos a medida que avanzamos. Al final 
 - [ ] Husky + lint-staged configurado.
 
 ### Git y CI
+
 - [ ] `git init` + primer commit con el scaffold.
 - [ ] Repo en GitHub (privado mientras se desarrolla).
 - [ ] `.github/workflows/ci.yml` con typecheck + test + lint.
@@ -40,11 +44,13 @@ Checklist detallada por fase. Marcar elementos a medida que avanzamos. Al final 
 ## Fase 1 — Los 3 microservicios básicos (1 día)
 
 ### `packages/shared`
+
 - [ ] Tipos compartidos: `ApiResponse<T>`, `ApiError`, `ChatMessage`, `ConversationId`.
 - [ ] Constantes: rutas internas, nombres de colas, códigos de error.
-- [ ] Exportado como `@conversa/shared`.
+- [ ] Exportado como `@llm-agent/shared`.
 
 ### `services/gateway` — entrada HTTP pública
+
 - [ ] Scaffold Express + TS.
 - [ ] Clean Architecture: `routes/`, `controllers/`, `services/`, `common/middleware/`.
 - [ ] `POST /chat` — recibe `{ userId, message, conversationId? }`.
@@ -55,6 +61,7 @@ Checklist detallada por fase. Marcar elementos a medida que avanzamos. Al final 
 - [ ] Tests: supertest sobre `/chat` con servicios mockeados.
 
 ### `services/conversation` — persistencia de conversaciones
+
 - [ ] Scaffold Express + Prisma + Postgres.
 - [ ] Schema Prisma: `User`, `Conversation`, `Message` (role: user|assistant).
 - [ ] Migración inicial con nombre descriptivo.
@@ -63,6 +70,7 @@ Checklist detallada por fase. Marcar elementos a medida que avanzamos. Al final 
 - [ ] Tests: service con repo mockeado + integration con supertest.
 
 ### `services/llm-worker` — llamada al LLM
+
 - [ ] Scaffold Express + TS.
 - [ ] Definir interfaz `LLMProvider` con método `generate(messages): Promise<string>` (Strategy Pattern + DIP).
 - [ ] **`MockProvider` primero**: respuestas hardcoded/echo para desarrollo sin API key. Provider por defecto.
@@ -74,6 +82,7 @@ Checklist detallada por fase. Marcar elementos a medida que avanzamos. Al final 
 - [ ] Tests: `MockProvider` probado directamente; `AnthropicProvider` con HTTP mockeado (no se llama a la API real en tests).
 
 ### Orquestación local (pre-k8s)
+
 - [ ] `docker-compose.yml` con: postgres, gateway, conversation, llm-worker.
 - [ ] `.env` con `ANTHROPIC_API_KEY` y URLs internas.
 - [ ] `npm run dev` en raíz arranca los 3 servicios con concurrently.
@@ -84,23 +93,26 @@ Checklist detallada por fase. Marcar elementos a medida que avanzamos. Al final 
 ## Fase 2 — Kubernetes local (minikube) (0.5 días)
 
 ### Contenedores
+
 - [ ] Dockerfile multi-stage para cada servicio (build → production).
-- [ ] `docker build` para los 3 servicios con tags consistentes (`conversa/gateway:0.1.0`, etc.).
+- [ ] `docker build` para los 3 servicios con tags consistentes (`llm-agent/gateway:0.1.0`, etc.).
 - [ ] Cargar imágenes en minikube (`minikube image load`).
 
 ### Manifests
-- [ ] `k8s/namespace.yaml` — namespace `conversa`.
+
+- [ ] `k8s/namespace.yaml` — namespace `llm-agent`.
 - [ ] `k8s/postgres/` — StatefulSet + Service + PersistentVolumeClaim.
 - [ ] `k8s/gateway/` — Deployment + Service + ConfigMap.
 - [ ] `k8s/conversation/` — Deployment + Service + ConfigMap.
 - [ ] `k8s/llm-worker/` — Deployment + Service + Secret (para API key).
-- [ ] `k8s/ingress.yaml` — expone gateway en un host local (`conversa.local`).
+- [ ] `k8s/ingress.yaml` — expone gateway en un host local (`llm-agent.local`).
 
 ### Deploy y verificación
+
 - [ ] `minikube start --driver=docker`.
 - [ ] `kubectl apply -f k8s/`.
-- [ ] `kubectl get pods -n conversa` — todos Running.
-- [ ] `minikube tunnel` + hosts file → probar `POST conversa.local/chat`.
+- [ ] `kubectl get pods -n llm-agent` — todos Running.
+- [ ] `minikube tunnel` + hosts file → probar `POST llm-agent.local/chat`.
 - [ ] Script `scripts/deploy-local.sh` que hace build + load + apply.
 
 ---
@@ -108,6 +120,7 @@ Checklist detallada por fase. Marcar elementos a medida que avanzamos. Al final 
 ## Fase 3 — Observabilidad (tracing + logs estructurados) (1 día)
 
 ### OpenTelemetry
+
 - [ ] Instalar `@opentelemetry/sdk-node`, `@opentelemetry/auto-instrumentations-node`, exporter OTLP.
 - [ ] Fichero `tracing.ts` en cada servicio, importado ANTES que nada.
 - [ ] Nombres de servicio: `gateway`, `conversation`, `llm-worker`.
@@ -115,12 +128,14 @@ Checklist detallada por fase. Marcar elementos a medida que avanzamos. Al final 
 - [ ] Spans manuales en operaciones clave (`llm.generate`, `db.saveMessage`).
 
 ### Jaeger
+
 - [ ] Desplegar Jaeger all-in-one en k8s (`jaeger-operator` o manifest simple).
 - [ ] Exponer UI por port-forward o ingress en `jaeger.local`.
 - [ ] Configurar OTLP endpoint en cada servicio apuntando al collector.
 - [ ] Verificar trace end-to-end: `POST /chat` → gateway → conversation → llm-worker → Claude API.
 
 ### Logs estructurados
+
 - [ ] `pino` en cada servicio, JSON por defecto.
 - [ ] `pino-http` para request logging.
 - [ ] Correlation ID generado en gateway y propagado por headers.
@@ -128,6 +143,7 @@ Checklist detallada por fase. Marcar elementos a medida que avanzamos. Al final 
 - [ ] Log level configurable por env (`LOG_LEVEL`).
 
 ### Healthchecks
+
 - [ ] `GET /health` (liveness) — responde `{ status: 'ok' }` siempre que el proceso vive.
 - [ ] `GET /health/ready` (readiness) — chequea DB (en conversation) y Anthropic (en llm-worker).
 - [ ] Configurar `livenessProbe` y `readinessProbe` en los Deployments.
@@ -137,6 +153,7 @@ Checklist detallada por fase. Marcar elementos a medida que avanzamos. Al final 
 ## Fase 4 — Resiliencia (circuit breakers + retries + timeouts) (0.5 días)
 
 ### opossum circuit breakers
+
 - [ ] Breaker en `gateway` → `conversation-service`.
 - [ ] Breaker en `gateway` → `llm-worker`.
 - [ ] Breaker en `llm-worker` → Claude API (el más crítico: rate limits, timeouts, caídas).
@@ -145,14 +162,17 @@ Checklist detallada por fase. Marcar elementos a medida que avanzamos. Al final 
 - [ ] Eventos emitidos a logs: `open`, `halfOpen`, `close`, `fallback`.
 
 ### Retries con backoff
+
 - [ ] Retries exponenciales en llamadas al LLM (errores transitorios 429, 503).
 - [ ] NO reintentar en errores 4xx de input.
 
 ### Timeouts
+
 - [ ] Timeout HTTP global en cada cliente interno (3-5s).
 - [ ] Timeout específico largo para LLM (30s).
 
 ### Tests
+
 - [ ] Test de circuit breaker: simular fallos repetidos y verificar que abre.
 - [ ] Test de fallback.
 
@@ -161,23 +181,27 @@ Checklist detallada por fase. Marcar elementos a medida que avanzamos. Al final 
 ## Fase 5 — Linkerd service mesh (1 día)
 
 ### Instalación
+
 - [ ] `linkerd install --crds | kubectl apply -f -`.
 - [ ] `linkerd install | kubectl apply -f -`.
 - [ ] `linkerd check` — todo verde.
 - [ ] Instalar extensión viz: `linkerd viz install | kubectl apply -f -`.
 
 ### Inyección en el namespace
-- [ ] Anotar namespace `conversa` con `linkerd.io/inject: enabled`.
+
+- [ ] Anotar namespace `llm-agent` con `linkerd.io/inject: enabled`.
 - [ ] Reiniciar deployments para inyectar el sidecar.
-- [ ] Verificar con `linkerd -n conversa check --proxy`.
+- [ ] Verificar con `linkerd -n llm-agent check --proxy`.
 
 ### Funcionalidades
-- [ ] Verificar mTLS automático: `linkerd -n conversa viz edges deploy`.
+
+- [ ] Verificar mTLS automático: `linkerd -n llm-agent viz edges deploy`.
 - [ ] Configurar `ServiceProfile` con retries y timeouts declarativos.
 - [ ] Traffic splitting: dos versiones de `llm-worker` (v1 Haiku, v2 Sonnet) con `TrafficSplit`.
 - [ ] Abrir `linkerd viz dashboard` y observar métricas en tiempo real.
 
 ### Entender qué aporta
+
 - [ ] Anotar en `lessons.md`: qué cambia con el mesh, qué código eliminaría si confiara 100% en el mesh para retries/timeouts, por qué sigo queriendo breakers en código (fallbacks específicos al dominio).
 
 ---
@@ -185,22 +209,26 @@ Checklist detallada por fase. Marcar elementos a medida que avanzamos. Al final 
 ## Fase 6 — Istio lab en namespace separado (1 día)
 
 ### Instalación aislada
+
 - [ ] Crear namespace `istio-lab`.
 - [ ] `istioctl install --set profile=demo -y`.
 - [ ] Etiquetar namespace: `kubectl label namespace istio-lab istio-injection=enabled`.
 
 ### Demo Bookinfo
+
 - [ ] Desplegar Bookinfo oficial en `istio-lab`.
 - [ ] Gateway + VirtualService para exponer `productpage`.
 - [ ] Verificar que funciona.
 
 ### Experimentos mínimos pero representativos
+
 - [ ] `VirtualService` con traffic splitting 80/20 entre `reviews-v1` y `reviews-v3`.
 - [ ] `DestinationRule` con `loadBalancer` y `outlierDetection`.
 - [ ] Fault injection: `abort` 50% en `ratings` y observar el comportamiento.
 - [ ] Mirroring de tráfico a una versión sombra.
 
 ### Comparación documentada
+
 - [ ] Escribir en `lessons.md` una tabla Linkerd vs Istio: simplicidad, features, overhead, cuándo elegir cada uno.
 
 ---
@@ -210,6 +238,7 @@ Checklist detallada por fase. Marcar elementos a medida que avanzamos. Al final 
 Dos caminos según disponibilidad de cuenta AWS:
 
 ### Camino A — Con cuenta AWS (si conseguimos free tier)
+
 - [ ] Habilitar Bedrock en la región (p. ej. `us-east-1`), request access a modelos Anthropic.
 - [ ] Implementar `BedrockProvider` en `llm-worker` (AWS SDK v3).
 - [ ] Variable de entorno `LLM_PROVIDER=anthropic|bedrock` para alternar.
@@ -217,6 +246,7 @@ Dos caminos según disponibilidad de cuenta AWS:
 - [ ] Documentar diferencias entre los dos caminos (API directa vs Bedrock).
 
 ### Camino B — Sin cuenta AWS (manifests preparados)
+
 - [ ] Crear `k8s/eks/` con manifests listos para EKS (diferencias con minikube documentadas).
 - [ ] README con los pasos de `eksctl create cluster`, IAM roles para Bedrock, IRSA.
 - [ ] Diagrama de cómo quedaría desplegado en AWS.

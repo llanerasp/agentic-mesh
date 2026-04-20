@@ -1,6 +1,6 @@
-# Roadmap — Agente Conversacional Distribuido
+# Roadmap — LLM Agent Mesh
 
-Proyecto de aprendizaje para la candidatura de **Node.js Software Engineer en Esbrina**. Objetivo: construir un mini-agente conversacional basado en LLM, arquitectura de microservicios, desplegado en Kubernetes, con observabilidad, resiliencia y service mesh. Toca las 4 áreas del stack que nunca he trabajado: **microservicios, Kubernetes, cloud (AWS), LLMs/Generative AI**.
+Proyecto de aprendizaje para una candidatura de **Node.js Software Engineer**. Objetivo: construir un mini-agente conversacional basado en LLM, arquitectura de microservicios, desplegado en Kubernetes, con observabilidad, resiliencia y service mesh. Toca las 4 áreas del stack que nunca he trabajado: **microservicios, Kubernetes, cloud (AWS), LLMs/Generative AI**.
 
 ## Visión del sistema
 
@@ -24,37 +24,37 @@ Proyecto de aprendizaje para la candidatura de **Node.js Software Engineer en Es
 
 ## Stack
 
-| Área | Tecnología |
-| --- | --- |
-| Runtime | Node.js 20 + TypeScript strict |
-| HTTP | Express |
-| DB | PostgreSQL + Prisma |
-| Validación | Zod |
-| Logs | pino |
-| Tests | Jest + supertest |
-| Monorepo | npm workspaces |
-| Contenedores | Docker multi-stage |
-| Orquestación | Kubernetes (minikube) |
-| Tracing | OpenTelemetry + Jaeger |
-| Circuit breaker | opossum |
-| Service mesh | Linkerd (principal) + Istio (lab) |
-| LLM | Claude API (Anthropic) — con abstracción para AWS Bedrock |
-| CI/CD | GitHub Actions + Husky + lint-staged |
+| Área            | Tecnología                                                |
+| --------------- | --------------------------------------------------------- |
+| Runtime         | Node.js 20 + TypeScript strict                            |
+| HTTP            | Express                                                   |
+| DB              | PostgreSQL + Prisma                                       |
+| Validación      | Zod                                                       |
+| Logs            | pino                                                      |
+| Tests           | Jest + supertest                                          |
+| Monorepo        | npm workspaces                                            |
+| Contenedores    | Docker multi-stage                                        |
+| Orquestación    | Kubernetes (minikube)                                     |
+| Tracing         | OpenTelemetry + Jaeger                                    |
+| Circuit breaker | opossum                                                   |
+| Service mesh    | Linkerd (principal) + Istio (lab)                         |
+| LLM             | Claude API (Anthropic) — con abstracción para AWS Bedrock |
+| CI/CD           | GitHub Actions + Husky + lint-staged                      |
 
 ## Fases
 
-| Fase | Título | Estimación |
-| --- | --- | --- |
-| 0 | Setup, decisiones y tooling | 0.5 días |
-| 1 | Los 3 microservicios básicos | 1 día |
-| 2 | Kubernetes local (minikube) | 0.5 días |
-| 3 | Observabilidad (tracing + logs) | 1 día |
-| 4 | Resiliencia (circuit breakers + health) | 0.5 días |
-| 5 | Linkerd service mesh | 1 día |
-| 6 | Istio lab (Bookinfo + traffic splitting) | 1 día |
-| 7 | AWS touch (Bedrock o manifests EKS) | 0.5 días |
-| 8 | Cierre (README, diagramas, demo) | 0.5 días |
-| **Total** | | **~6-7 días realistas** |
+| Fase      | Título                                   | Estimación              |
+| --------- | ---------------------------------------- | ----------------------- |
+| 0         | Setup, decisiones y tooling              | 0.5 días                |
+| 1         | Los 3 microservicios básicos             | 1 día                   |
+| 2         | Kubernetes local (minikube)              | 0.5 días                |
+| 3         | Observabilidad (tracing + logs)          | 1 día                   |
+| 4         | Resiliencia (circuit breakers + health)  | 0.5 días                |
+| 5         | Linkerd service mesh                     | 1 día                   |
+| 6         | Istio lab (Bookinfo + traffic splitting) | 1 día                   |
+| 7         | AWS touch (Bedrock o manifests EKS)      | 0.5 días                |
+| 8         | Cierre (README, diagramas, demo)         | 0.5 días                |
+| **Total** |                                          | **~6-7 días realistas** |
 
 ## Criterio de éxito
 
