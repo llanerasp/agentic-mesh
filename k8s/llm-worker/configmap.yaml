@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: llm-worker-config
+  namespace: llm-agent
+data:
+  NODE_ENV: production
+  LOG_LEVEL: info
+  LLM_WORKER_PORT: '3002'
+  LLM_PROVIDER: mock
+  ANTHROPIC_MODEL: claude-haiku-4-5
+  ANTHROPIC_MAX_TOKENS: '512'
+  SYSTEM_PROMPT: 'Eres un asistente util, conciso y en espanol.'

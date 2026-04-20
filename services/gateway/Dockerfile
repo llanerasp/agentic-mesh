@@ -3,6 +3,8 @@
 
 FROM node:20-alpine AS builder
 WORKDIR /app
+# Saltar el prepare script de husky (no existe en prod).
+ENV HUSKY=0
 
 # Copiar manifiestos para cachear install.
 COPY package.json package-lock.json tsconfig.base.json ./
@@ -24,6 +26,7 @@ RUN npm run build -w @llm-agent/gateway
 FROM node:20-alpine AS production
 WORKDIR /app
 ENV NODE_ENV=production
+ENV HUSKY=0
 
 # Copiar solo lo necesario.
 COPY package.json package-lock.json ./
@@ -31,7 +34,8 @@ COPY packages/shared/package.json ./packages/shared/
 COPY services/gateway/package.json ./services/gateway/
 
 # Instalar solo deps de produccion.
-RUN npm ci --workspaces --include-workspace-root --omit=dev
+# --ignore-scripts evita lifecycle scripts (ej. husky prepare) que dependen de devDeps.
+RUN npm ci --workspaces --include-workspace-root --omit=dev --ignore-scripts
 
 # Copiar los bundles compilados.
 COPY --from=builder /app/packages/shared/dist ./packages/shared/dist

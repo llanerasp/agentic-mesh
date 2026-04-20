@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gateway-config
+  namespace: llm-agent
+data:
+  NODE_ENV: production
+  LOG_LEVEL: info
+  GATEWAY_PORT: '3000'
+  CONVERSATION_SERVICE_URL: http://conversation:3001
+  LLM_WORKER_URL: http://llm-worker:3002
+  RATE_LIMIT_WINDOW_MS: '60000'
+  RATE_LIMIT_MAX: '60'
+  HTTP_TIMEOUT_MS: '5000'
+  LLM_HTTP_TIMEOUT_MS: '30000'
