@@ -1,0 +1,84 @@
+# ============================================
+# Dependencias
+# ============================================
+node_modules/
+.pnp
+.pnp.js
+
+# ============================================
+# Builds y outputs generados
+# ============================================
+dist/
+build/
+out/
+.next/
+*.tsbuildinfo
+
+# ============================================
+# Tests y cobertura
+# ============================================
+coverage/
+.nyc_output/
+
+# ============================================
+# Entornos y SECRETS (nunca commitear)
+# ============================================
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+# Excepcion: .env.example SI se commitea (es la plantilla sin secretos)
+!.env.example
+
+# ============================================
+# Logs
+# ============================================
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ============================================
+# Prisma (cliente generado, no las migraciones)
+# ============================================
+**/node_modules/.prisma/
+**/prisma/generated/
+
+# ============================================
+# Claude Code (config local)
+# ============================================
+.claude/
+
+# ============================================
+# Editor / IDE
+# ============================================
+.vscode/
+!.vscode/settings.json.example
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+
+# ============================================
+# Sistema operativo
+# ============================================
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# ============================================
+# Docker local
+# ============================================
+.docker/
+
+# ============================================
+# Kubernetes locales (secrets renderizados)
+# ============================================
+k8s/**/secrets-rendered.yaml

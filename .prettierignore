@@ -1,0 +1,33 @@
+# Dependencias
+node_modules/
+
+# Builds y outputs generados
+dist/
+build/
+coverage/
+.next/
+out/
+
+# Lockfiles (los gestiona npm)
+package-lock.json
+npm-shrinkwrap.json
+yarn.lock
+pnpm-lock.yaml
+
+# Prisma (migraciones autogeneradas)
+**/prisma/migrations/
+
+# Logs
+*.log
+logs/
+
+# Entornos y secretos
+.env
+.env.*
+
+# Docker / Kubernetes (YAML a veces da problemas con Prettier)
+# Se puede quitar si queremos formatear YAML también
+**/*.k8s.yaml
+
+# Docs que no queremos tocar
+CHANGELOG.md

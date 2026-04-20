@@ -1,0 +1,12 @@
+# Fuerza LF como final de linea en el repo para todos los archivos de texto.
+# Evita problemas de CRLF en Windows <-> LF en Mac/Linux/Docker.
+* text=auto eol=lf
+
+# Archivos binarios (no aplica conversion)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
