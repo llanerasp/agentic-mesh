@@ -52,16 +52,24 @@ flowchart LR
 
 ## Estado actual
 
-**Fase 0 — Setup, decisiones y tooling** (en progreso)
+**Fase 0 — Setup y tooling** ✅
 
 - [x] Monorepo con npm workspaces
-- [x] TypeScript strict (base config compartida)
-- [x] Prettier + ESLint flat config (con `no-explicit-any: error`)
-- [x] .gitignore + .env.example
-- [ ] Husky + lint-staged (pre-commit hook)
-- [ ] GitHub Actions CI
+- [x] TypeScript strict + ESLint flat config (`no-explicit-any: error`)
+- [x] Prettier + Husky + lint-staged (pre-commit)
+- [x] GitHub Actions CI (typecheck, lint, test, format)
 
-Fases 1-8 pendientes. Ver `tasks/roadmap.md` y `tasks/todo.md` para el plan completo.
+**Fase 1 — Microservicios** ✅
+
+- [x] `packages/shared`: tipos, helpers y rutas compartidas (ApiResponse, ChatMessage, branded IDs)
+- [x] `services/llm-worker`: Strategy Pattern con 3 providers (Mock, Anthropic, Bedrock stub)
+- [x] `services/conversation`: Prisma + Postgres, CRUD conversaciones + mensajes, paginado
+- [x] `services/gateway`: orquesta el flujo completo `POST /chat`
+- [x] `docker-compose.yml` + Dockerfiles multi-stage para los 3 servicios
+- [x] **102 tests** en 14 suites (todos verdes)
+
+**Fase 2+** pendientes: Kubernetes, observabilidad, resiliencia, service mesh, AWS.
+Ver `tasks/roadmap.md` y `tasks/todo.md`.
 
 ---
 
