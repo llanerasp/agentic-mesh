@@ -29,10 +29,10 @@ services:
     environment:
       NODE_ENV: production
       LOG_LEVEL: info
-      CONVERSATION_PORT: 3001
+      CONVERSATION_PORT: 3002
       DATABASE_URL: postgresql://llm_agent:llm_agent@postgres:5432/llm_agent?schema=public
     ports:
-      - '3001:3001'
+      - '3002:3002'
     depends_on:
       postgres:
         condition: service_healthy
@@ -48,13 +48,13 @@ services:
     environment:
       NODE_ENV: production
       LOG_LEVEL: info
-      LLM_WORKER_PORT: 3002
+      LLM_WORKER_PORT: 3003
       LLM_PROVIDER: ${LLM_PROVIDER:-mock}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
       ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-haiku-4-5}
       ANTHROPIC_MAX_TOKENS: ${ANTHROPIC_MAX_TOKENS:-512}
     ports:
-      - '3002:3002'
+      - '3003:3003'
     networks:
       - llm-agent
 
@@ -67,11 +67,11 @@ services:
     environment:
       NODE_ENV: production
       LOG_LEVEL: info
-      GATEWAY_PORT: 3000
-      CONVERSATION_SERVICE_URL: http://conversation:3001
-      LLM_WORKER_URL: http://llm-worker:3002
+      GATEWAY_PORT: 3001
+      CONVERSATION_SERVICE_URL: http://conversation:3002
+      LLM_WORKER_URL: http://llm-worker:3003
     ports:
-      - '3000:3000'
+      - '3001:3001'
     depends_on:
       - conversation
       - llm-worker

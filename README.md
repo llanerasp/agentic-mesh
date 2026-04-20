@@ -123,7 +123,7 @@ cp .env.example .env
 docker compose up -d
 
 # Probar
-curl -X POST http://localhost:3000/chat \
+curl -X POST http://localhost:3001/chat \
   -H "Content-Type: application/json" \
   -d '{"userId": "u1", "message": "Hola"}'
 ```

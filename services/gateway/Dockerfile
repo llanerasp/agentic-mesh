@@ -43,5 +43,5 @@ COPY --from=builder /app/services/gateway/dist ./services/gateway/dist
 
 # Arranque.
 USER node
-EXPOSE 3000
+EXPOSE 3001
 CMD ["node", "services/gateway/dist/server.js"]

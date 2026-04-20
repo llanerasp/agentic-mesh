@@ -41,7 +41,7 @@ COPY --from=builder /app/node_modules/@prisma/client ./node_modules/@prisma/clie
 RUN chown -R node:node /app
 
 USER node
-EXPOSE 3001
+EXPOSE 3002
 # Para la demo usamos `db push` (aplica el schema sin historial de migraciones).
 # En produccion real se usaria `migrate deploy` con migraciones versionadas.
 # --skip-generate: el cliente ya esta copiado del builder.

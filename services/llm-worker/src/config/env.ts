@@ -4,7 +4,7 @@ const EnvSchema = z
   .object({
     NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
     LOG_LEVEL: z.enum(['trace', 'debug', 'info', 'warn', 'error', 'fatal']).default('info'),
-    LLM_WORKER_PORT: z.coerce.number().int().positive().default(3002),
+    LLM_WORKER_PORT: z.coerce.number().int().positive().default(3003),
 
     LLM_PROVIDER: z.enum(['mock', 'anthropic', 'bedrock']).default('mock'),
 

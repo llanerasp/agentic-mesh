@@ -5,7 +5,7 @@ describe('loadEnv', () => {
     const env = loadEnv({});
     expect(env.NODE_ENV).toBe('development');
     expect(env.LOG_LEVEL).toBe('info');
-    expect(env.LLM_WORKER_PORT).toBe(3002);
+    expect(env.LLM_WORKER_PORT).toBe(3003);
     expect(env.LLM_PROVIDER).toBe('mock');
     expect(env.ANTHROPIC_MODEL).toBe('claude-haiku-4-5');
   });

@@ -6,4 +6,4 @@ metadata:
 data:
   NODE_ENV: production
   LOG_LEVEL: info
-  CONVERSATION_PORT: '3001'
+  CONVERSATION_PORT: '3002'

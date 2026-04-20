@@ -29,5 +29,5 @@ COPY --from=builder /app/packages/shared/dist ./packages/shared/dist
 COPY --from=builder /app/services/llm-worker/dist ./services/llm-worker/dist
 
 USER node
-EXPOSE 3002
+EXPOSE 3003
 CMD ["node", "services/llm-worker/dist/server.js"]

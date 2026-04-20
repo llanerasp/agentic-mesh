@@ -7,7 +7,7 @@ import type { Env } from '../../config/env';
 const baseEnv: Env = {
   NODE_ENV: 'test',
   LOG_LEVEL: 'info',
-  LLM_WORKER_PORT: 3002,
+  LLM_WORKER_PORT: 3003,
   LLM_PROVIDER: 'mock',
   ANTHROPIC_MODEL: 'claude-haiku-4-5',
   ANTHROPIC_MAX_TOKENS: 512,

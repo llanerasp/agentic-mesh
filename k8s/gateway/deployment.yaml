@@ -27,7 +27,7 @@ spec:
           image: llm-agent/gateway:0.1.0
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 3000
+            - containerPort: 3001
               name: http
           envFrom:
             - configMapRef:
@@ -35,13 +35,13 @@ spec:
           livenessProbe:
             httpGet:
               path: /health
-              port: 3000
+              port: 3001
             initialDelaySeconds: 10
             periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /health/ready
-              port: 3000
+              port: 3001
             initialDelaySeconds: 3
             periodSeconds: 5
           resources:

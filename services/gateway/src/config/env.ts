@@ -3,9 +3,9 @@ import { z } from 'zod';
 const EnvSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   LOG_LEVEL: z.enum(['trace', 'debug', 'info', 'warn', 'error', 'fatal']).default('info'),
-  GATEWAY_PORT: z.coerce.number().int().positive().default(3000),
-  CONVERSATION_SERVICE_URL: z.string().url().default('http://localhost:3001'),
-  LLM_WORKER_URL: z.string().url().default('http://localhost:3002'),
+  GATEWAY_PORT: z.coerce.number().int().positive().default(3001),
+  CONVERSATION_SERVICE_URL: z.string().url().default('http://localhost:3002'),
+  LLM_WORKER_URL: z.string().url().default('http://localhost:3003'),
   RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(60_000),
   RATE_LIMIT_MAX: z.coerce.number().int().positive().default(60),
   HTTP_TIMEOUT_MS: z.coerce.number().int().positive().default(5_000),
