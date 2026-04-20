@@ -1,0 +1,51 @@
+// Schema Prisma: usuarios, conversaciones y mensajes.
+// UTC en la DB (TIMESTAMPTZ), conversion a local en la capa de presentacion.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  user
+  assistant
+  system
+}
+
+model User {
+  id            String         @id @default(cuid())
+  externalId    String         @unique // id que nos envia el gateway (auth externa)
+  createdAt     DateTime       @default(now()) @db.Timestamptz(6)
+  conversations Conversation[]
+
+  @@index([externalId])
+}
+
+model Conversation {
+  id        String    @id @default(cuid())
+  userId    String
+  title     String? // opcional: primera frase del usuario, se puede generar despues
+  createdAt DateTime  @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime  @updatedAt @db.Timestamptz(6)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages  Message[]
+
+  @@index([userId])
+  @@index([updatedAt])
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  role           Role
+  content        String       @db.Text
+  createdAt      DateTime     @default(now()) @db.Timestamptz(6)
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+  @@index([createdAt])
+}
