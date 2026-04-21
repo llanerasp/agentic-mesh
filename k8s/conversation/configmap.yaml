@@ -7,3 +7,6 @@ data:
   NODE_ENV: production
   LOG_LEVEL: info
   CONVERSATION_PORT: '3002'
+  OTEL_SERVICE_NAME: conversation
+  OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
+  OTEL_RESOURCE_ATTRIBUTES: service.version=0.1.0,deployment.environment=local

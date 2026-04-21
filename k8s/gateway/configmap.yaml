@@ -13,3 +13,6 @@ data:
   RATE_LIMIT_MAX: '60'
   HTTP_TIMEOUT_MS: '5000'
   LLM_HTTP_TIMEOUT_MS: '30000'
+  OTEL_SERVICE_NAME: gateway
+  OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
+  OTEL_RESOURCE_ATTRIBUTES: service.version=0.1.0,deployment.environment=local

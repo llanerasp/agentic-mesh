@@ -1,3 +1,5 @@
+// OTel PRIMERO — auto-instrumenta http, express antes de cargarlos.
+import './tracing';
 import { loadEnv } from './config/env';
 import { logger } from './common/logger';
 import { createLLMProvider } from './providers/factory';

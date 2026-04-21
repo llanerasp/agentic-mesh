@@ -11,3 +11,6 @@ data:
   ANTHROPIC_MODEL: claude-haiku-4-5
   ANTHROPIC_MAX_TOKENS: '512'
   SYSTEM_PROMPT: 'Eres un asistente util, conciso y en espanol.'
+  OTEL_SERVICE_NAME: llm-worker
+  OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
+  OTEL_RESOURCE_ATTRIBUTES: service.version=0.1.0,deployment.environment=local
