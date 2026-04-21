@@ -1,4 +1,4 @@
-# LLM Agent Mesh
+# Agentic Mesh
 
 > Agente conversacional basado en LLM. Arquitectura de microservicios Node/TypeScript, desplegada en Kubernetes, con observabilidad, resiliencia y service mesh.
 
@@ -76,7 +76,7 @@ Ver `tasks/roadmap.md` y `tasks/todo.md`.
 ## Estructura del monorepo
 
 ```
-llm-agent-mesh/
+agentic-mesh/
 ├── package.json               # workspaces config
 ├── tsconfig.base.json         # TypeScript compartido
 ├── eslint.config.mjs          # flat config ESLint 9+

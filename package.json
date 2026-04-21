@@ -1,5 +1,5 @@
 {
-  "name": "llm-agent-mesh",
+  "name": "agentic-mesh",
   "version": "0.1.0",
   "private": true,
   "description": "Agente conversacional basado en LLM. Microservicios Node/TypeScript orquestados en Kubernetes con service mesh, tracing distribuido y circuit breakers.",
